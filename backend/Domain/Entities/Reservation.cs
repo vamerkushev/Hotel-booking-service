@@ -19,6 +19,10 @@ public class Reservation
     public RoomType? RoomType { get; private set; }
     public Property? Property { get; private set; }
 
+    public Guid? ClientId { get; private set; }
+    public Client? Client { get; private set; }
+    public ICollection<RoomInBooking> RoomInBookings { get; private set; } = new List<RoomInBooking>();
+
     private Reservation()
     {
     }
@@ -61,5 +65,10 @@ public class Reservation
     {
         Total = total;
         Currency = currency;
+    }
+
+    public void AssignClient( Guid clientId )
+    {
+        ClientId = clientId;
     }
 }

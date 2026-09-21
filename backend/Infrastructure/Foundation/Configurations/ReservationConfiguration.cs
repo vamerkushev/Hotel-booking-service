@@ -44,5 +44,10 @@ internal class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
                .WithMany()
                .HasForeignKey( r => r.RoomTypeId )
                .OnDelete( DeleteBehavior.NoAction );
+
+        builder.HasOne( r => r.Client )
+               .WithMany( c => c.Reservations )
+               .HasForeignKey( r => r.ClientId )
+               .OnDelete( DeleteBehavior.SetNull );
     }
 }
