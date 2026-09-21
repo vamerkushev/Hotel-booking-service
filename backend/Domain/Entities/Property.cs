@@ -3,10 +3,10 @@
 public class Property
 {
     public Guid Id { get; private init; }
-    public string Name { get; private set; }
-    public string Country { get; private set; }
-    public string City { get; private set; }
-    public string Address { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Country { get; private set; } = null!;
+    public string City { get; private set; } = null!;
+    public string Address { get; private set; } = null!;
     public double Latitude { get; private set; }
     public double Longitude { get; private set; }
 
@@ -35,10 +35,5 @@ public class Property
         Address = address;
         Latitude = latitude;
         Longitude = longitude;
-    }
-
-    public void CopyFrom( Property other )
-    {
-        Update( other.Name, other.Country, other.City, other.Address, other.Latitude, other.Longitude );
     }
 }

@@ -17,8 +17,5 @@ public class HotelManagementDbContext : DbContext
         modelBuilder.ApplyConfiguration( new PropertyConfiguration() );
         modelBuilder.ApplyConfiguration( new RoomTypeConfiguration() );
         modelBuilder.ApplyConfiguration( new ReservationConfiguration() );
-        modelBuilder.ApplyConfiguration( new ClientConfiguration() );
-        modelBuilder.ApplyConfiguration( new RoomConfiguration() );
-        modelBuilder.ApplyConfiguration( new RoomInBookingConfiguration() );
     }
 }

@@ -28,11 +28,9 @@ internal class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
                .IsRequired();
 
         builder.Property( r => r.ArrivalTime )
-               .HasMaxLength( 10 )
                .IsRequired();
 
         builder.Property( r => r.DepartureTime )
-               .HasMaxLength( 10 )
                .IsRequired();
 
         builder.HasOne( r => r.Property )
@@ -44,10 +42,5 @@ internal class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
                .WithMany()
                .HasForeignKey( r => r.RoomTypeId )
                .OnDelete( DeleteBehavior.NoAction );
-
-        builder.HasOne( r => r.Client )
-               .WithMany( c => c.Reservations )
-               .HasForeignKey( r => r.ClientId )
-               .OnDelete( DeleteBehavior.SetNull );
     }
 }
