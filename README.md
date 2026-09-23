@@ -71,8 +71,8 @@
 |---|---|---|
 | `room_category_id` | int, PK | Уникальный идентификатор категории |
 | `name` | string | Название категории (люкс, эконом и т. д.) |
-| `min_client_count` | int | Минимальное количество клиентов |
-| `max_client_count` | int | Максимальное количество клиентов |
+| `min_user_count` | int | Минимальное количество клиентов |
+| `max_user_count` | int | Максимальное количество клиентов |
 | `created_at` | date | Дата создания |
 | `updated_at` | date | Дата последнего изменения |
 | `deleted_at` | date | Дата удаления |
@@ -91,19 +91,20 @@
 | `updated_at` | date | Дата последнего изменения |
 | `deleted_at` | date | Дата удаления |
 
-### 3.4. Client — Клиент
+### 3.4. User — Клиент
 
 Пользователь системы, оформляющий бронирования.
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `client_id` | int, PK | Уникальный идентификатор клиента |
+| `user_id` | int, PK | Уникальный идентификатор клиента |
 | `first_name` | string | Имя |
 | `second_name` | string | Фамилия |
 | `middle_name` | string | Отчество |
 | `email` | string | Электронная почта |
 | `phone` | string | Телефон |
 | `password` | string | Пароль |
+| `role` | enum | Роль |
 | `created_at` | date | Дата регистрации |
 | `deleted_at` | date | Дата удаления |
 
@@ -114,10 +115,10 @@
 | Атрибут | Тип | Описание |
 |---|---|---|
 | `booking_id` | int, PK | Уникальный идентификатор брони |
-| `client_id` | int, FK | Ссылка на клиента |
+| `user_id` | int, FK | Ссылка на клиента |
 | `total` | float | Общая стоимость бронирования |
 | `currency` | enum | Валюта |
-| `client_count` | int | Количество клиентов |
+| `user_count` | int | Количество клиентов |
 | `booking_date` | date | Дата создания брони |
 | `created_at` | date | Дата создания записи |
 | `updated_at` | date | Дата последнего изменения |
@@ -172,27 +173,28 @@ erDiagram
     room_in_booking ||--|{ room : includes
     room_category ||--|{ room : includes
     booking ||--|{ room_in_booking : includes
-    client ||--|{ booking : includes
+    user ||--|{ booking : includes
     room_category ||--|{ rate_plan_room_category : includes
     rate_plan ||--|{ rate_plan_room_category : includes
 
-    client {
-        int client_id
+    user {
+        int user_id
         string first_name
         string second_name
         string middle_name
         string email
         string phone
         string password
+        enum role
         date created_at
         date deleted_at
     }
     booking {
         int booking_id
-        int client_id
+        int user_id
         float total
         enum currency
-        int client_count
+        int user_count
         date booking_date
         date created_at
         date updated_at
@@ -220,8 +222,8 @@ erDiagram
     room_category {
         int room_category_id
         string name
-        int min_client_count
-        int max_client_count
+        int min_user_count
+        int max_user_count
         date created_at
         date updated_at
         date deleted_at
@@ -261,7 +263,7 @@ erDiagram
 |---|---|---|
 | `hotel` → `room` | 1:N | Один отель содержит множество номеров |
 | `room_category` → `room` | 1:N | Одна категория относится к множеству номеров |
-| `client` → `booking` | 1:N | Один клиент может создать множество броней |
+| `user` → `booking` | 1:N | Один клиент может создать множество броней |
 | `booking` → `room_in_booking` | 1:N | Одна бронь может содержать несколько комнат |
 | `room` → `room_in_booking` | 1:N | Один номер может участвовать в нескольких бронях (в разные периоды) |
 | `rate_plan` ↔ `room_category` | M:N | Через `rate_plan_room_category` — тариф применим к нескольким категориям, категория имеет несколько тарифов |
@@ -277,7 +279,7 @@ erDiagram
 - **Hotel** — добавление, просмотр списка и по ID, редактирование, удаление;
 - **RoomCategory** — добавление, просмотр, редактирование, удаление;
 - **Room** — добавление, просмотр (в том числе по отелю), редактирование, удаление;
-- **Client** — регистрация, просмотр, редактирование, удаление;
+- **User** — регистрация, просмотр, редактирование, удаление;
 - **Booking** — создание, просмотр, отмена;
 - **RoomInBooking** — добавление комнаты в бронь, просмотр, удаление;
 - **RatePlan** — добавление, просмотр, редактирование, удаление;
@@ -330,7 +332,7 @@ erDiagram
 
 3. **Согласованность брони.** Комнаты, добавляемые в бронь, должны относиться к тому же отелю, что указан в бронировании.
 
-4. **Соответствие количества гостей.** Количество гостей в бронировании должно укладываться в диапазон `min_client_count..max_client_count` категории номера.
+4. **Соответствие количества гостей.** Количество гостей в бронировании должно укладываться в диапазон `min_user_count..max_user_count` категории номера.
 
 5. **Soft-delete.** Удаление сущностей выполняется логически — простановкой поля `deleted_at`; физически записи не удаляются.
 
@@ -369,7 +371,7 @@ frontend/
 
 В результате выполнения курсовой работы должен быть получен структурированный проект, включающий:
 
-- **реляционную базу данных** из восьми взаимосвязанных таблиц (`hotel`, `room_category`, `room`, `client`, `booking`, `room_in_booking`, `rate_plan`, `rate_plan_room_category`), обеспечивающих целостность данных и поддержку всех операций предметной области;
+- **реляционную базу данных** из восьми взаимосвязанных таблиц (`hotel`, `room_category`, `room`, `user`, `booking`, `room_in_booking`, `rate_plan`, `rate_plan_room_category`), обеспечивающих целостность данных и поддержку всех операций предметной области;
 - **CRUD-операции** над всеми сущностями;
 - **бизнес-логику** поиска вариантов размещения, создания, просмотра и отмены бронирований с учётом правил доступности и расчёта стоимости;
 - **отчёты с группировкой (GROUP BY)** для анализа загрузки гостиниц, активности клиентов и структуры бронирований;
