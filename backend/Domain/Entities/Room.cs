@@ -2,9 +2,9 @@
 
 public class Room
 {
-    public int Id { get; private set; }
-    public int HotelId { get; private set; }
-    public int RoomCategoryId { get; private set; }
+    public Guid Id { get; private set; }
+    public Guid HotelId { get; private set; }
+    public Guid RoomCategoryId { get; private set; }
     public string Number { get; private set; } = string.Empty;
 
     public DateTime CreatedAt { get; private set; }

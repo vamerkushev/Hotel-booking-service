@@ -2,7 +2,7 @@
 
 public class RoomCategory
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public int MinUserCount { get; private set; }
     public int MaxUserCount { get; private set; }

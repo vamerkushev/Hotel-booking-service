@@ -2,9 +2,9 @@
 
 public class RoomInBooking
 {
-    public int Id { get; private set; }
-    public int BookingId { get; private set; }
-    public int RoomId { get; private set; }
+    public Guid Id { get; private set; }
+    public Guid BookingId { get; private set; }
+    public Guid RoomId { get; private set; }
     public DateOnly ArrivalDate { get; private set; }
     public DateOnly DepartureDate { get; private set; }
 

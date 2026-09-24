@@ -2,7 +2,7 @@
 
 public class Hotel
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Country { get; private set; } = string.Empty;
     public string City { get; private set; } = string.Empty;

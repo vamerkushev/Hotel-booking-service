@@ -2,7 +2,7 @@
 
 public class RatePlan
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }

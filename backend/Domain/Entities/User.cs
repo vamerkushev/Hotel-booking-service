@@ -4,7 +4,7 @@ namespace Domain.Entities;
 
 public class User
 {
-    public int Id { get; private set; }
+    public Guid Id { get; private set; }
     public string FirstName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;
     public string MiddleName { get; private set; } = string.Empty;
