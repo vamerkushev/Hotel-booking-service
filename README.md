@@ -53,7 +53,7 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `hotel_id` | int, PK | Уникальный идентификатор отеля |
+| `hotel_id` | guid, PK | Уникальный идентификатор отеля |
 | `name` | string | Название отеля |
 | `country` | string | Страна расположения |
 | `city` | string | Город расположения |
@@ -69,7 +69,7 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `room_category_id` | int, PK | Уникальный идентификатор категории |
+| `room_category_id` | guid, PK | Уникальный идентификатор категории |
 | `name` | string | Название категории (люкс, эконом и т. д.) |
 | `min_user_count` | int | Минимальное количество клиентов |
 | `max_user_count` | int | Максимальное количество клиентов |
@@ -83,9 +83,9 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `room_id` | int, PK | Уникальный идентификатор комнаты |
-| `hotel_id` | int, FK | Ссылка на отель |
-| `room_category_id` | int, FK | Ссылка на категорию номера |
+| `room_id` | guid, PK | Уникальный идентификатор комнаты |
+| `hotel_id` | guid, FK | Ссылка на отель |
+| `room_category_id` | guid, FK | Ссылка на категорию номера |
 | `number` | string | Номер комнаты в отеле |
 | `created_at` | date | Дата создания |
 | `updated_at` | date | Дата последнего изменения |
@@ -97,7 +97,7 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `user_id` | int, PK | Уникальный идентификатор клиента |
+| `user_id` | guid, PK | Уникальный идентификатор клиента |
 | `first_name` | string | Имя |
 | `second_name` | string | Фамилия |
 | `middle_name` | string | Отчество |
@@ -114,8 +114,8 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `booking_id` | int, PK | Уникальный идентификатор брони |
-| `user_id` | int, FK | Ссылка на клиента |
+| `booking_id` | guid, PK | Уникальный идентификатор брони |
+| `user_id` | guid, FK | Ссылка на клиента |
 | `total` | float | Общая стоимость бронирования |
 | `currency` | enum | Валюта |
 | `user_count` | int | Количество клиентов |
@@ -130,9 +130,9 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `room_in_booking_id` | int, PK | Уникальный идентификатор записи |
-| `booking_id` | int, FK | Ссылка на бронирование |
-| `room_id` | int, FK | Ссылка на комнату |
+| `room_in_booking_id` | guid, PK | Уникальный идентификатор записи |
+| `booking_id` | guid, FK | Ссылка на бронирование |
+| `room_id` | guid, FK | Ссылка на комнату |
 | `arrival_date` | date | Дата заезда |
 | `departure_date` | date | Дата выезда |
 | `created_at` | date | Дата создания |
@@ -145,7 +145,7 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `rate_plan_id` | int, PK | Уникальный идентификатор тарифа |
+| `rate_plan_id` | guid, PK | Уникальный идентификатор тарифа |
 | `name` | string | Название тарифа |
 | `description` | string | Описание условий |
 | `price` | float | Цена |
@@ -159,9 +159,9 @@
 
 | Атрибут | Тип | Описание |
 |---|---|---|
-| `rate_plan_room_category_id` | int, PK | Уникальный идентификатор связки |
-| `rate_plan_id` | int, FK | Ссылка на тарифный план |
-| `room_category_id` | int, FK | Ссылка на категорию номера |
+| `rate_plan_room_category_id` | guid, PK | Уникальный идентификатор связки |
+| `rate_plan_id` | guid, FK | Ссылка на тарифный план |
+| `room_category_id` | guid, FK | Ссылка на категорию номера |
 
 ---
 
@@ -178,7 +178,7 @@ erDiagram
     rate_plan ||--|{ rate_plan_room_category : includes
 
     user {
-        int user_id
+        guid user_id
         string first_name
         string second_name
         string middle_name
@@ -190,8 +190,8 @@ erDiagram
         date deleted_at
     }
     booking {
-        int booking_id
-        int user_id
+        guid booking_id
+        guid user_id
         float total
         enum currency
         int user_count
@@ -201,9 +201,9 @@ erDiagram
         date deleted_at
     }
     room_in_booking {
-        int room_in_booking
-        int booking_id
-        int room_id
+        guid room_in_booking_id
+        guid booking_id
+        guid room_id
         date arrival_date
         date departure_date
         date created_at
@@ -211,16 +211,16 @@ erDiagram
         date deleted_at
     }
     room {
-        int room_id
-        int hotel_id
-        int room_category_id
+        guid room_id
+        guid hotel_id
+        guid room_category_id
         string number
         date created_at
         date updated_at
         date deleted_at
     }
     room_category {
-        int room_category_id
+        guid room_category_id
         string name
         int min_user_count
         int max_user_count
@@ -229,7 +229,7 @@ erDiagram
         date deleted_at
     }
     hotel {
-        int hotel_id
+        guid hotel_id
         string name
         string country
         string city
@@ -240,12 +240,12 @@ erDiagram
         date deleted_at
     }
     rate_plan_room_category {
-        int rate_plan_room_category_id
-        int rate_plan_id
-        int room_category_id
+        guid rate_plan_room_category_id
+        guid rate_plan_id
+        guid room_category_id
     }
     rate_plan {
-        int rate_plan_id
+        guid rate_plan_id
         string name
         string description
         float price
