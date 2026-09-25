@@ -349,6 +349,7 @@ erDiagram
 - **Паттерны:** Repository, DI
 - **Документация API:** Swagger / Swashbuckle
 - **Миграции:** EF Core Migrations
+- **Пользовательский интерфейс:** React + TypeScript
 
 ### Структура решения
 
