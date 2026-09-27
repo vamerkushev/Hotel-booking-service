@@ -6,20 +6,15 @@ public class Room
     public Guid HotelId { get; private set; }
     public Guid RoomCategoryId { get; private set; }
     public string Number { get; private set; } = string.Empty;
-
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
-    public Hotel? Hotel { get; private set; }
-    public RoomCategory? RoomCategory { get; private set; }
-    public ICollection<RoomInBooking> RoomInBookings { get; private set; } = new List<RoomInBooking>();
 
     private Room()
     {
     }
 
-    public Room( int hotelId, int roomCategoryId, string number )
+    public Room( Guid hotelId, Guid roomCategoryId, string number )
     {
         HotelId = hotelId;
         RoomCategoryId = roomCategoryId;
@@ -27,7 +22,7 @@ public class Room
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update( int roomCategoryId, string number )
+    public void Update( Guid roomCategoryId, string number )
     {
         RoomCategoryId = roomCategoryId;
         Number = number;

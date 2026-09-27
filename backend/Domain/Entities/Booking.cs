@@ -9,44 +9,39 @@ public class Booking
     public decimal Total { get; private set; }
     public CurrencyList Currency { get; private set; }
     public int UserCount { get; private set; }
+    public BookingStatus Status { get; private set; }
     public DateOnly BookingDate { get; private set; }
-
     public DateTime CreatedAt { get; private set; }
-    public DateTime? UpdatedAt { get; private set; }
-    public DateTime? DeletedAt { get; private set; }
-
-    public User? User { get; private set; }
-    public ICollection<RoomInBooking> RoomInBookings { get; private set; } = new List<RoomInBooking>();
 
     private Booking()
     {
     }
 
-    public Booking( int userId, int userCount, CurrencyList currency, DateOnly bookingDate )
+    public Booking( Guid userId, int userCount, CurrencyList currency, DateOnly bookingDate, BookingStatus bookingStatus )
     {
         UserId = userId;
         UserCount = userCount;
         Currency = currency;
         BookingDate = bookingDate;
         Total = 0;
+        Status = bookingStatus;
         CreatedAt = DateTime.UtcNow;
     }
 
     public void SetTotal( decimal total )
     {
         Total = total;
-        UpdatedAt = DateTime.UtcNow;
     }
 
-    public void Update( int userCount, CurrencyList currency )
+    public void Update( int userCount, CurrencyList currency, BookingStatus status )
     {
         UserCount = userCount;
         Currency = currency;
-        UpdatedAt = DateTime.UtcNow;
+        Status = status;
     }
 
     public void SetDeleted()
     {
-        DeletedAt = DateTime.UtcNow;
+        Status = BookingStatus.CANCELLED;
     }
 }

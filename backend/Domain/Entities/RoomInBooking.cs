@@ -7,19 +7,15 @@ public class RoomInBooking
     public Guid RoomId { get; private set; }
     public DateOnly ArrivalDate { get; private set; }
     public DateOnly DepartureDate { get; private set; }
-
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
-    public Booking? Booking { get; private set; }
-    public Room? Room { get; private set; }
-
+    
     private RoomInBooking()
     {
     }
 
-    public RoomInBooking( int bookingId, int roomId, DateOnly arrivalDate, DateOnly departureDate )
+    public RoomInBooking( Guid bookingId, Guid roomId, DateOnly arrivalDate, DateOnly departureDate )
     {
         BookingId = bookingId;
         RoomId = roomId;

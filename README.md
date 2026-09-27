@@ -170,40 +170,39 @@
 ```mermaid
 erDiagram
     hotel ||--|{ room : includes
-    room_in_booking ||--|{ room : includes
-    room_category ||--|{ room : includes
+    room_in_booking ||--|{ rate_plan_room_category : includes
+    rate_plan_room_category ||--|{ room : includes
     booking ||--|{ room_in_booking : includes
-    user ||--|{ booking : includes
+    user ||--o{ booking : includes
     room_category ||--|{ rate_plan_room_category : includes
     rate_plan ||--|{ rate_plan_room_category : includes
-
     user {
-        guid user_id
+        guid client_id
         string first_name
         string second_name
         string middle_name
         string email
         string phone
         string password
-        enum role
+        int role
         date created_at
         date deleted_at
     }
     booking {
         guid booking_id
-        guid user_id
+        guid client_id
         float total
         enum currency
-        int user_count
+        int client_count
         date booking_date
+        int status
         date created_at
-        date updated_at
-        date deleted_at
     }
     room_in_booking {
-        guid room_in_booking_id
+        guid room_in_booking
         guid booking_id
-        guid room_id
+        guid rate_plan_room_category_id
+        string booking_id
         date arrival_date
         date departure_date
         date created_at
@@ -213,7 +212,6 @@ erDiagram
     room {
         guid room_id
         guid hotel_id
-        guid room_category_id
         string number
         date created_at
         date updated_at
@@ -222,8 +220,8 @@ erDiagram
     room_category {
         guid room_category_id
         string name
-        int min_user_count
-        int max_user_count
+        int min_client_count
+        int max_client_count
         date created_at
         date updated_at
         date deleted_at
@@ -241,8 +239,9 @@ erDiagram
     }
     rate_plan_room_category {
         guid rate_plan_room_category_id
-        guid rate_plan_id
+        guidt rate_plan_id
         guid room_category_id
+        guid room_id
     }
     rate_plan {
         guid rate_plan_id

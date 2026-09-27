@@ -8,13 +8,10 @@ public class Hotel
     public string City { get; private set; } = string.Empty;
     public string Street { get; private set; } = string.Empty;
     public int Stars { get; private set; }
-
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
-    public ICollection<Room> Rooms { get; private set; } = new List<Room>();
-
+    
     private Hotel()
     {
     }

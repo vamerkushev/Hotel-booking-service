@@ -12,12 +12,9 @@ public class User
     public string Phone { get; private set; } = string.Empty;
     public string Password { get; private set; } = string.Empty;
     public UserRole Role { get; private set; }
-
     public DateTime CreatedAt { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
-    public ICollection<Booking> Bookings { get; private set; } = new List<Booking>();
-
+    
     private User()
     {
     }
