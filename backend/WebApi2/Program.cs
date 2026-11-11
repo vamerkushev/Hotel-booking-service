@@ -13,13 +13,15 @@ builder.Services.AddDbContext<HotelManagementDbContext>( options =>
 builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
 builder.Services.AddProblemDetails();
 
-builder.Services.AddScoped<IPropertyRepository, EFPropertyRepository>();
-builder.Services.AddScoped<IRoomTypeRepository, EFRoomTypeRepository>();
-builder.Services.AddScoped<IReservationRepository, EFReservationRepository>();
-
-builder.Services.AddScoped<PropertyService>();
-builder.Services.AddScoped<ReservationService>();
-builder.Services.AddScoped<RoomTypeService>();
+// builder.Services.AddScoped<IPropertyRepository, EFPropertyRepository>();
+// builder.Services.AddScoped<IRoomTypeRepository, EFRoomTypeRepository>();
+// builder.Services.AddScoped<IReservationRepository, EFReservationRepository>();
+builder.Services.AddScoped<IUserRepository, EFUserRepository>();
+//
+// builder.Services.AddScoped<PropertyService>();
+// builder.Services.AddScoped<ReservationService>();
+// builder.Services.AddScoped<RoomTypeService>();
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
