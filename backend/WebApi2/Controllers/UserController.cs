@@ -15,8 +15,8 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost( "/profile" )]
-    public IActionResult GetUser( [FromBody] Guid id )
+    [HttpGet( "profile/{id:guid}" )]
+    public IActionResult GetUser( [FromRoute] Guid id )
     {
         UserDto user = _userService.GetUser( id );
         
