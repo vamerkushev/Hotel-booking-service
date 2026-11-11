@@ -36,6 +36,11 @@ app.UseExceptionHandler();
 
 if ( app.Environment.IsDevelopment() )
 {
+    using ( IServiceScope scope = app.Services.CreateScope() )
+    {
+        scope.ServiceProvider.GetRequiredService<HotelManagementDbContext>().Database.Migrate();
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

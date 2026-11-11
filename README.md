@@ -364,6 +364,21 @@ frontend/
 *в разработке*
 ```
 
+### Запуск через Docker
+
+Требуется Docker Desktop. На Mac с Apple Silicon в настройках Docker Desktop должна быть включена опция «Use Rosetta for x86/amd64 emulation».
+
+```bash
+docker compose up -d --build
+```
+
+- Swagger: http://localhost:5208/swagger
+- SQL Server: `localhost,1433`, пользователь `sa`, пароль из `MSSQL_SA_PASSWORD`
+
+Миграции применяются автоматически при старте API. Пароль БД по умолчанию — `Your_strong_Pass123`; чтобы задать свой, скопируйте `.env.example` в `.env` и измените значение.
+
+Остановка: `docker compose down`. Остановка с удалением данных БД: `docker compose down -v`.
+
 ---
 
 ## 9. Ожидаемый результат
