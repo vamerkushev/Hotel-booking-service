@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi2.Controllers;
 
 [ApiController]
-[Route( "app/" )]
-public class UserController : ControllerBase
+[Route( "api/users" )]
+public class UsersController : ControllerBase
 {
     private readonly UserService _userService;
-    
-    public UserController( UserService userService )
+
+    public UsersController( UserService userService )
     {
         _userService = userService;
     }
 
-    [HttpGet( "profile/{id:guid}" )]
+    [HttpGet( "{id:guid}" )]
     public IActionResult GetUser( [FromRoute] Guid id )
     {
         UserDto user = _userService.GetUser( id );

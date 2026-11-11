@@ -11,6 +11,8 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable( "User" );
         builder.HasKey( r => r.Id );
 
+        builder.HasQueryFilter( r => r.DeletedAt == null );
+
         builder.Property( r => r.FirstName )
                .HasMaxLength( 15 )
                .IsRequired();
@@ -26,12 +28,15 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength( 70 )
             .IsRequired();
 
+        builder.HasIndex( r => r.Email )
+            .IsUnique();
+
         builder.Property( r => r.Phone )
             .HasMaxLength( 15 )
             .IsRequired();
 
         builder.Property( r => r.Password )
-            .HasMaxLength( 70 )
+            .HasMaxLength( 100 )
             .IsRequired();
 
         builder.Property( r => r.Role )

@@ -1,4 +1,6 @@
 using Domain.Interfaces.Repositories;
+using Domain.Interfaces.Services;
+using Infrastructure.Foundation.Security;
 using Infrastructure.Foundation;
 using Infrastructure.Foundation.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ builder.Services.AddProblemDetails();
 // builder.Services.AddScoped<IRoomTypeRepository, EFRoomTypeRepository>();
 // builder.Services.AddScoped<IReservationRepository, EFReservationRepository>();
 builder.Services.AddScoped<IUserRepository, EFUserRepository>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 //
 // builder.Services.AddScoped<PropertyService>();
 // builder.Services.AddScoped<ReservationService>();

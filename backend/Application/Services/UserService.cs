@@ -16,7 +16,7 @@ public class UserService
 
     public UserDto GetUser( Guid id )
     {
-        User? user = _userRepository.FindUserById(id);
+        User? user = _userRepository.FindUserById( id );
         if ( user == null )
         {
             throw new NotFoundException($"User with id: {id} not found");

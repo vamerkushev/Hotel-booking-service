@@ -7,7 +7,7 @@ public class User
     public Guid Id { get; private set; }
     public string FirstName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;
-    public string MiddleName { get; private set; } = string.Empty;
+    public string? MiddleName { get; private set; }
     public string Email { get; private set; } = string.Empty;
     public string Phone { get; private set; } = string.Empty;
     public string Password { get; private set; } = string.Empty;
@@ -22,7 +22,7 @@ public class User
     public User(
         string firstName,
         string secondName,
-        string middleName,
+        string? middleName,
         string email,
         string phone,
         string password,
@@ -41,16 +41,19 @@ public class User
     public void Update(
         string firstName,
         string secondName,
-        string middleName,
+        string? middleName,
         string email,
-        string phone,
-        UserRole role )
+        string phone )
     {
         FirstName = firstName;
         SecondName = secondName;
         MiddleName = middleName;
         Email = email;
         Phone = phone;
+    }
+
+    public void ChangeRole( UserRole role )
+    {
         Role = role;
     }
 
