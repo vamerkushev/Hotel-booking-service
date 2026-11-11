@@ -12,6 +12,8 @@ public class Booking
     public BookingStatus Status { get; private set; }
     public DateOnly BookingDate { get; private set; }
     public DateTime CreatedAt { get; private set; }
+    public DateTime? UpdatedAt { get; private set; }
+    public DateTime? DeletedAt { get; private set; }
 
     private Booking()
     {

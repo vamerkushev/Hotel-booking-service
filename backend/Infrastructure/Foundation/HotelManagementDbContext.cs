@@ -14,9 +14,13 @@ public class HotelManagementDbContext : DbContext
     {
         base.OnModelCreating( modelBuilder );
 
-        // modelBuilder.ApplyConfiguration( new PropertyConfiguration() );
-        // modelBuilder.ApplyConfiguration( new RoomTypeConfiguration() );
-        // modelBuilder.ApplyConfiguration( new ReservationConfiguration() );
+        modelBuilder.ApplyConfiguration( new HotelConfiguration() );
+        modelBuilder.ApplyConfiguration( new RoomCategoryConfiguration() );
+        modelBuilder.ApplyConfiguration( new RoomConfiguration() );
+        modelBuilder.ApplyConfiguration( new BookingConfiguration() );
+        modelBuilder.ApplyConfiguration( new RoomInBookingConfiguration() );
+        modelBuilder.ApplyConfiguration( new RatePlanConfiguration() );
+        modelBuilder.ApplyConfiguration( new RatePlanRoomCategoryConfiguration() );
         modelBuilder.ApplyConfiguration( new UserConfiguration() );
     }
 }

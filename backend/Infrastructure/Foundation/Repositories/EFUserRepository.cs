@@ -16,4 +16,10 @@ public class EFUserRepository : IUserRepository
     {
         return _dbContext.Set<User>().Find( id );
     }
+
+    public void Save( User user )
+    {
+        _dbContext.Set<User>().Add( user );
+        _dbContext.SaveChanges();
+    }
 }

@@ -16,34 +16,34 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property( r => r.FirstName )
                .HasMaxLength( 15 )
                .IsRequired();
-        
+
         builder.Property( r => r.SecondName )
-            .HasMaxLength( 30 )
-            .IsRequired();
+               .HasMaxLength( 30 )
+               .IsRequired();
 
         builder.Property( r => r.MiddleName )
-            .HasMaxLength( 30 );
+               .HasMaxLength( 30 );
 
         builder.Property( r => r.Email )
-            .HasMaxLength( 70 )
-            .IsRequired();
+               .HasMaxLength( 70 )
+               .IsRequired();
 
         builder.HasIndex( r => r.Email )
-            .IsUnique();
+               .IsUnique();
 
         builder.Property( r => r.Phone )
-            .HasMaxLength( 15 )
-            .IsRequired();
+               .HasMaxLength( 15 )
+               .IsRequired();
 
         builder.Property( r => r.Password )
-            .HasMaxLength( 100 )
-            .IsRequired();
+               .HasMaxLength( 100 )
+               .IsRequired();
 
         builder.Property( r => r.Role )
-            .IsRequired();
+               .IsRequired();
 
         builder.Property( r => r.CreatedAt )
-            .IsRequired();
+               .IsRequired();
 
         builder.Property( r => r.DeletedAt );
     }

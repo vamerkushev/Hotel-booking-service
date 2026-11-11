@@ -19,7 +19,7 @@ public class UsersController : ControllerBase
     public IActionResult GetUser( [FromRoute] Guid id )
     {
         UserDto user = _userService.GetUser( id );
-        
+
         return Ok( user );
     }
 }
