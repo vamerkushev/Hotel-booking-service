@@ -18,6 +18,14 @@ public class EFHotelRepository : IHotelRepository
         _dbContext.SaveChanges();
     }
 
+    public void Update( Hotel hotel )
+    {
+        _dbContext.Set<Hotel>().Update( hotel );
+        _dbContext.SaveChanges();
+    }
+
+    public IReadOnlyList<Hotel> GetAll() => _dbContext.Set<Hotel>().ToList();
+
     public IReadOnlyList<Hotel> GetByCity( string city )
         => _dbContext.Set<Hotel>().Where( h => h.City.Contains( city ) ).ToList();
 

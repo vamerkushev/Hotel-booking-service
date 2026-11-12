@@ -22,4 +22,12 @@ public class EFUserRepository : IUserRepository
         _dbContext.Set<User>().Add( user );
         _dbContext.SaveChanges();
     }
+
+    public void Update( User user )
+    {
+        _dbContext.Set<User>().Update( user );
+        _dbContext.SaveChanges();
+    }
+
+    public IReadOnlyList<User> GetAll() => _dbContext.Set<User>().ToList();
 }

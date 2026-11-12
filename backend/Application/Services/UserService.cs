@@ -22,6 +22,30 @@ public class UserService
         return user.Id;
     }
 
+    public void UpdateUser( Guid id, UpdateUserDto dto )
+    {
+        User? user = _userRepository.FindUserById( id );
+        if ( user == null )
+        {
+            throw new NotFoundException( $"Пользователь с ID {id} не найден!" );
+        }
+
+        user.Update( dto.FirstName, dto.SecondName, dto.MiddleName, dto.Email, dto.Phone );
+        _userRepository.Update( user );
+    }
+
+    public void DeleteUser( Guid id )
+    {
+        User? user = _userRepository.FindUserById( id );
+        if ( user == null )
+        {
+            throw new NotFoundException( $"Пользователь с ID {id} не найден!" );
+        }
+
+        user.SetDeleted();
+        _userRepository.Update( user );
+    }
+
     public UserDto GetUser( Guid id )
     {
         User? user = _userRepository.FindUserById( id );

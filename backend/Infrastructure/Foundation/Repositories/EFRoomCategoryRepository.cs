@@ -17,4 +17,13 @@ public class EFRoomCategoryRepository : IRoomCategoryRepository
         _dbContext.Set<RoomCategory>().Add( roomCategory );
         _dbContext.SaveChanges();
     }
+
+    public void Update( RoomCategory roomCategory )
+    {
+        _dbContext.Set<RoomCategory>().Update( roomCategory );
+        _dbContext.SaveChanges();
+    }
+
+    public RoomCategory? GetById( Guid id ) => _dbContext.Set<RoomCategory>().Find( id );
+    public IReadOnlyList<RoomCategory> GetAll() => _dbContext.Set<RoomCategory>().ToList();
 }

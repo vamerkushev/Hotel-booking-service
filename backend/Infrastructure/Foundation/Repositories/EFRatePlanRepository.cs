@@ -18,6 +18,16 @@ public class EFRatePlanRepository : IRatePlanRepository
         _dbContext.SaveChanges();
     }
 
+    public void Update( RatePlan ratePlan )
+    {
+        _dbContext.Set<RatePlan>().Update( ratePlan );
+        _dbContext.SaveChanges();
+    }
+
+    public IReadOnlyList<RatePlan> GetAll() => _dbContext.Set<RatePlan>().ToList();
+
+    public RatePlan? GetById( Guid id ) => _dbContext.Set<RatePlan>().Find( id );
+
     public RatePlan? GetByRoomCategoryId( Guid roomCategoryId )
     {
         var query = from rprc in _dbContext.Set<RatePlanRoomCategory>()

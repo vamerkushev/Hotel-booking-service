@@ -21,6 +21,30 @@ public class HotelService
         return hotel.Id;
     }
 
+    public void UpdateHotel( Guid id, UpdateHotelDto dto )
+    {
+        Hotel? hotel = _hotelRepository.GetById( id );
+        if ( hotel == null )
+        {
+            throw new NotFoundException( $"Отель с ID {id} не найден!" );
+        }
+
+        hotel.Update( dto.Name, dto.Country, dto.City, dto.Street, dto.Stars );
+        _hotelRepository.Update( hotel );
+    }
+
+    public void DeleteHotel( Guid id )
+    {
+        Hotel? hotel = _hotelRepository.GetById( id );
+        if ( hotel == null )
+        {
+            throw new NotFoundException( $"Отель с ID {id} не найден!" );
+        }
+
+        hotel.SetDeleted();
+        _hotelRepository.Update( hotel );
+    }
+
     public IEnumerable<HotelDto> SearchHotels( string city )
     {
         return _hotelRepository

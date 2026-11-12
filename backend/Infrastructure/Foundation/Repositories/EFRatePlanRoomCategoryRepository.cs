@@ -17,4 +17,12 @@ public class EFRatePlanRoomCategoryRepository : IRatePlanRoomCategoryRepository
         _dbContext.Set<RatePlanRoomCategory>().Add( ratePlanRoomCategory );
         _dbContext.SaveChanges();
     }
+
+    public RatePlanRoomCategory? GetById( Guid id ) => _dbContext.Set<RatePlanRoomCategory>().Find( id );
+
+    public void Delete( RatePlanRoomCategory ratePlanRoomCategory )
+    {
+        _dbContext.Set<RatePlanRoomCategory>().Remove( ratePlanRoomCategory );
+        _dbContext.SaveChanges();
+    }
 }

@@ -18,6 +18,14 @@ public class EFRoomRepository : IRoomRepository
         _dbContext.SaveChanges();
     }
 
+    public void Update( Room room )
+    {
+        _dbContext.Set<Room>().Update( room );
+        _dbContext.SaveChanges();
+    }
+
+    public IReadOnlyList<Room> GetAll() => _dbContext.Set<Room>().ToList();
+
     public Room? GetById( Guid id ) => _dbContext.Set<Room>().Find( id );
 
     public IReadOnlyList<Room> GetAvailableRooms( Guid hotelId, DateOnly arrival, DateOnly departure )

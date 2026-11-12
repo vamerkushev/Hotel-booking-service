@@ -23,6 +23,30 @@ public class RoomService
         return room.Id;
     }
 
+    public void UpdateRoom( Guid id, UpdateRoomDto dto )
+    {
+        Room? room = _roomRepository.GetById( id );
+        if ( room == null )
+        {
+            throw new NotFoundException( $"Комната с ID {id} не найдена!" );
+        }
+
+        room.Update( dto.RoomCategoryId, dto.Number );
+        _roomRepository.Update( room );
+    }
+
+    public void DeleteRoom( Guid id )
+    {
+        Room? room = _roomRepository.GetById( id );
+        if ( room == null )
+        {
+            throw new NotFoundException( $"Комната с ID {id} не найдена!" );
+        }
+
+        room.SetDeleted();
+        _roomRepository.Update( room );
+    }
+
     public IEnumerable<RoomDto> SearchRooms( Guid hotelId, DateOnly arrival, DateOnly departure )
     {
         if ( arrival >= departure )
