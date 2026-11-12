@@ -20,4 +20,10 @@ public class EFHotelRepository : IHotelRepository
 
     public IReadOnlyList<Hotel> GetByCity( string city )
         => _dbContext.Set<Hotel>().Where( h => h.City.Contains( city ) ).ToList();
+
+    public Hotel? GetById( Guid id )
+    {
+        Hotel? hotel = _dbContext.Set<Hotel>().Find( id );
+        return hotel;
+    }
 }

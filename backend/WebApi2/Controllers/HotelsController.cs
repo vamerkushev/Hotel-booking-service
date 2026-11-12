@@ -16,10 +16,16 @@ public class HotelsController : ControllerBase
     }
 
     [HttpGet( "search" )]
-    public IActionResult Search( [FromQuery] string city )
+    public IActionResult Search( [FromQuery] SearchHotelsDto request )
     {
-        IEnumerable<HotelDto> result = _hotelService.SearchHotels( city );
+        IEnumerable<HotelDto> result = _hotelService.SearchHotels( request.City );
+        return Ok( result );
+    }
 
+    [HttpGet( "{id:guid}" )]
+    public IActionResult GetById( [FromRoute] Guid id )
+    {
+        HotelDto result = _hotelService.GetById( id );
         return Ok( result );
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces.Repositories;
 
 namespace Application.Services;
@@ -25,5 +26,22 @@ public class HotelService
         return _hotelRepository
             .GetByCity( city )
             .Select( h => new HotelDto { Id = h.Id, Name = h.Name, City = h.City } );
+    }
+
+    public HotelDto GetById( Guid id )
+    {
+        Hotel? hotel = _hotelRepository.GetById( id );
+
+        if ( hotel == null )
+        {
+            throw new NotFoundException( $"Отель с ID {id} не найден!" );
+        }
+
+        HotelDto dto = new HotelDto();
+        dto.Id = hotel.Id;
+        dto.Name = hotel.Name;
+        dto.City = hotel.City;
+
+        return dto;
     }
 }

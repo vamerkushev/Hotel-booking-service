@@ -11,17 +11,20 @@ public class BookingService
     private readonly IRoomRepository _roomRepository;
     private readonly IRatePlanRepository _ratePlanRepository;
     private readonly IRoomInBookingRepository _roomInBookingRepository;
+    private readonly IUserRepository _userRepository;
 
     public BookingService(
         IBookingRepository bookingRepository,
         IRoomRepository roomRepository,
         IRatePlanRepository ratePlanRepository,
-        IRoomInBookingRepository roomInBookingRepository )
+        IRoomInBookingRepository roomInBookingRepository,
+        IUserRepository userRepository )
     {
         _bookingRepository = bookingRepository;
         _roomRepository = roomRepository;
         _ratePlanRepository = ratePlanRepository;
         _roomInBookingRepository = roomInBookingRepository;
+        _userRepository = userRepository;
     }
 
     public Guid CreateBooking( CreateBookingDto dto )
@@ -71,6 +74,12 @@ public class BookingService
 
     public IEnumerable<BookingDto> GetUserBookings( Guid userId )
     {
+        User? user = _userRepository.FindUserById( userId );
+        if ( user == null )
+        {
+            throw new NotFoundException( $"Пользователь с ID {userId} не найден!" );
+        }
+
         IReadOnlyList<Booking> bookings = _bookingRepository.GetByUserId( userId );
 
         List<BookingDto> result = new List<BookingDto>();
