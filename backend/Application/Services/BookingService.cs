@@ -47,6 +47,12 @@ public class BookingService
             throw new BadRequestException( "Дата выезда должна быть позже даты заезда!" );
         }
 
+        bool isAvailable = _roomInBookingRepository.IsRoomAvailable( dto.RoomId, dto.ArrivalDate, dto.DepartureDate );
+        if ( !isAvailable )
+        {
+            throw new BadRequestException( "Этот номер уже занят на выбранные даты!" );
+        }
+
         decimal totalPrice = ratePlan.Price * nights;
 
         Booking booking = new Booking(
@@ -95,6 +101,7 @@ public class BookingService
                 Id = b.Id,
                 Total = b.Total,
                 Currency = b.Currency.ToString(),
+                Status = b.Status.ToString(),
                 RoomId = rib != null ? rib.RoomId : Guid.Empty,
                 ArrivalDate = rib != null ? rib.ArrivalDate : DateOnly.MinValue,
                 DepartureDate = rib != null ? rib.DepartureDate : DateOnly.MinValue
@@ -104,5 +111,23 @@ public class BookingService
         }
 
         return result;
+    }
+
+    public void CancelBooking( Guid bookingId )
+    {
+        Booking? booking = _bookingRepository.GetById( bookingId );
+
+        if ( booking == null )
+        {
+            throw new NotFoundException( $"Бронирование с ID {bookingId} не найдено!" );
+        }
+
+        if ( booking.Status == Domain.Enums.BookingStatus.CANCELLED )
+        {
+            throw new BadRequestException( "Это бронирование уже отменено!" );
+        }
+
+        booking.Cancel();
+        _bookingRepository.Update( booking );
     }
 }

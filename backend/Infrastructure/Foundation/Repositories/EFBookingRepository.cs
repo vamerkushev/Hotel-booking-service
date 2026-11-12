@@ -19,6 +19,12 @@ public class EFBookingRepository : IBookingRepository
         _dbContext.SaveChanges();
     }
 
+    public void Update( Booking booking )
+    {
+        _dbContext.Set<Booking>().Update( booking );
+        _dbContext.SaveChanges();
+    }
+
     public Booking? GetById( Guid id )
     {
         return _dbContext.Set<Booking>().Find( id );

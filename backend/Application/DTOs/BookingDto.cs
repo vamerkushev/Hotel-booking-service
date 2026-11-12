@@ -8,4 +8,5 @@ public class BookingDto
     public DateOnly DepartureDate { get; set; }
     public decimal Total { get; set; }
     public string Currency { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
 }

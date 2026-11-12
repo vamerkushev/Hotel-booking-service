@@ -42,7 +42,7 @@ public class Booking
         Status = status;
     }
 
-    public void SetDeleted()
+    public void Cancel()
     {
         Status = BookingStatus.CANCELLED;
     }

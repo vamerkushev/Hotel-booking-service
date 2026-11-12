@@ -23,6 +23,13 @@ public class BookingsController : ControllerBase
         return Ok( bookingId );
     }
 
+    [HttpDelete( "{id:guid}" )]
+    public IActionResult Cancel( [FromRoute] Guid id )
+    {
+        _bookingService.CancelBooking( id );
+        return Ok();
+    }
+
     [HttpGet( "user/{userId}" )]
     public IActionResult GetUserBookings( Guid userId )
     {

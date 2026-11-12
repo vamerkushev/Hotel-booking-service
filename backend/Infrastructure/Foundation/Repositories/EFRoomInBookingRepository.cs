@@ -25,4 +25,19 @@ public class EFRoomInBookingRepository : IRoomInBookingRepository
 
         return roomsInBooking;
     }
+
+    public bool IsRoomAvailable( Guid roomId, DateOnly arrival, DateOnly departure )
+    {
+        var query = from rib in _dbContext.Set<RoomInBooking>()
+                    join b in _dbContext.Set<Booking>() on rib.BookingId equals b.Id
+                    where rib.RoomId == roomId
+                        && b.Status != Domain.Enums.BookingStatus.CANCELLED
+                        && rib.ArrivalDate < departure
+                        && rib.DepartureDate > arrival
+                    select rib;
+
+        bool isOccupied = query.Any();
+
+        return !isOccupied;
+    }
 }
