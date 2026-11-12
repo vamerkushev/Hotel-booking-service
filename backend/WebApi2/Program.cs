@@ -23,11 +23,13 @@ builder.Services.AddScoped<IRatePlanRepository, EFRatePlanRepository>();
 builder.Services.AddScoped<IRoomInBookingRepository, EFRoomInBookingRepository>();
 builder.Services.AddScoped<IRoomCategoryRepository, EFRoomCategoryRepository>();
 builder.Services.AddScoped<IRatePlanRoomCategoryRepository, EFRatePlanRoomCategoryRepository>();
+builder.Services.AddScoped<IReportRepository, EFReportRepository>();
 
 builder.Services.AddScoped<HotelService>();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ReportService>();
 
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
