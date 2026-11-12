@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.Booking;
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Interfaces.Repositories;

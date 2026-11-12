@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.Booking;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 

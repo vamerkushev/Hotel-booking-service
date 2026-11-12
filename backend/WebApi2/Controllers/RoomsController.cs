@@ -1,4 +1,5 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.General;
+using Application.DTOs.Room;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 

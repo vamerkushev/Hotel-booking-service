@@ -1,4 +1,9 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Hotel;
+using Application.DTOs.RatePlan;
+using Application.DTOs.Room;
+using Application.DTOs.RoomCategory;
+using Application.DTOs.User;
 using Application.Services;
 using Domain.Entities;
 using Domain.Exceptions;
