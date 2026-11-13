@@ -8,4 +8,5 @@ public interface IUserRepository
     void Save( User user );
     void Update( User user );
     IReadOnlyList<User> GetAll();
+    User? FindUserByEmail( string email );
 }

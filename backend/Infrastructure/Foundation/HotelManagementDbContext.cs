@@ -22,5 +22,6 @@ public class HotelManagementDbContext : DbContext
         modelBuilder.ApplyConfiguration( new RatePlanConfiguration() );
         modelBuilder.ApplyConfiguration( new RatePlanRoomCategoryConfiguration() );
         modelBuilder.ApplyConfiguration( new UserConfiguration() );
+        modelBuilder.ApplyConfiguration( new RefreshTokenConfiguration() );
     }
 }

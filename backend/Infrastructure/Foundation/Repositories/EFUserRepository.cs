@@ -17,15 +17,20 @@ public class EFUserRepository : IUserRepository
         return _dbContext.Set<User>().Find( id );
     }
 
-    public void Save( User user )
+    public User? FindUserByEmail( string email )
     {
-        _dbContext.Set<User>().Add( user );
-        _dbContext.SaveChanges();
+        return _dbContext.Set<User>().FirstOrDefault( u => u.Email == email );
     }
 
     public void Update( User user )
     {
         _dbContext.Set<User>().Update( user );
+        _dbContext.SaveChanges();
+    }
+
+    public void Save( User user )
+    {
+        _dbContext.Set<User>().Add( user );
         _dbContext.SaveChanges();
     }
 
