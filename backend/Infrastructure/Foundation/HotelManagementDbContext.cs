@@ -18,5 +18,6 @@ public class HotelManagementDbContext : DbContext
         // modelBuilder.ApplyConfiguration( new RoomTypeConfiguration() );
         // modelBuilder.ApplyConfiguration( new ReservationConfiguration() );
         modelBuilder.ApplyConfiguration( new UserConfiguration() );
+        modelBuilder.ApplyConfiguration( new RefreshTokenConfiguration() );
     }
 }

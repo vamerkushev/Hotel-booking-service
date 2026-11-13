@@ -1,34 +1,12 @@
-using Domain.Interfaces.Repositories;
-using Domain.Interfaces.Services;
-using Infrastructure.Foundation.Security;
-using Infrastructure.Foundation;
-using Infrastructure.Foundation.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Application.Services;
-using WebApi2.ExceptionHandlers;
+using WebApi2.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder( args );
 
-builder.Services.AddDbContext<HotelManagementDbContext>( options =>
-    options.UseSqlServer( builder.Configuration.GetConnectionString( "HotelManagement" ) ) );
-
-builder.Services.AddExceptionHandler<GlobalExceptionHandlers>();
-builder.Services.AddProblemDetails();
-
-// builder.Services.AddScoped<IPropertyRepository, EFPropertyRepository>();
-// builder.Services.AddScoped<IRoomTypeRepository, EFRoomTypeRepository>();
-// builder.Services.AddScoped<IReservationRepository, EFReservationRepository>();
-builder.Services.AddScoped<IUserRepository, EFUserRepository>();
-builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
-//
-// builder.Services.AddScoped<PropertyService>();
-// builder.Services.AddScoped<ReservationService>();
-// builder.Services.AddScoped<RoomTypeService>();
-builder.Services.AddScoped<UserService>();
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddPersistence( builder.Configuration )
+    .AddJwtAuthentication( builder.Configuration )
+    .AddApplicationServices()
+    .AddWebApi();
 
 WebApplication app = builder.Build();
 
@@ -36,15 +14,13 @@ app.UseExceptionHandler();
 
 if ( app.Environment.IsDevelopment() )
 {
-    using ( IServiceScope scope = app.Services.CreateScope() )
-    {
-        scope.ServiceProvider.GetRequiredService<HotelManagementDbContext>().Database.Migrate();
-    }
+    app.InitializeDatabase();
 
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

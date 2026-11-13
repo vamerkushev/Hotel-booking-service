@@ -19,9 +19,9 @@ public class UserService
         User? user = _userRepository.FindUserById( id );
         if ( user == null )
         {
-            throw new NotFoundException($"User with id: {id} not found");
+            throw new NotFoundException( $"User with id: {id} not found" );
         }
-        
-        return UserDto.ConvertUserToUserDto(user);
+
+        return UserDto.ConvertUserToUserDto( user );
     }
 }

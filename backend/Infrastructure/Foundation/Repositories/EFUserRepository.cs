@@ -16,4 +16,21 @@ public class EFUserRepository : IUserRepository
     {
         return _dbContext.Set<User>().Find( id );
     }
+
+    public User? FindUserByEmail( string email )
+    {
+        return _dbContext.Set<User>().FirstOrDefault( u => u.Email == email );
+    }
+
+    public void Add( User user )
+    {
+        _dbContext.Set<User>().Add( user );
+        _dbContext.SaveChanges();
+    }
+
+    public void Update( User user )
+    {
+        _dbContext.Set<User>().Update( user );
+        _dbContext.SaveChanges();
+    }
 }

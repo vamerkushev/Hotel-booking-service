@@ -54,6 +54,38 @@ public sealed class GlobalExceptionHandlers : IExceptionHandler
                     break;
                 }
 
+            case UnauthorizedException unauthorizedException:
+                {
+                    _logger.LogError(
+                        unauthorizedException,
+                        "Exception occurred: {Message}",
+                        unauthorizedException.Message );
+
+                    problemDetails = new ProblemDetails
+                    {
+                        Status = StatusCodes.Status401Unauthorized,
+                        Title = "Unauthorized",
+                        Detail = unauthorizedException.Message
+                    };
+                    break;
+                }
+
+            case ConflictException conflictException:
+                {
+                    _logger.LogError(
+                        conflictException,
+                        "Exception occurred: {Message}",
+                        conflictException.Message );
+
+                    problemDetails = new ProblemDetails
+                    {
+                        Status = StatusCodes.Status409Conflict,
+                        Title = "Conflict",
+                        Detail = conflictException.Message
+                    };
+                    break;
+                }
+
             default:
                 {
                     _logger.LogError( exception, "Exception occurred: {Message}", exception.Message );

@@ -379,6 +379,20 @@ docker compose up -d --build
 
 Остановка: `docker compose down`. Остановка с удалением данных БД: `docker compose down -v`.
 
+### Авторизация
+
+JWT: access-токен (15 минут) передаётся в заголовке `Authorization: Bearer <token>`, refresh-токен (7 дней) — для получения новой пары токенов. Роли: `Admin`, `Client`; при регистрации пользователь получает `Client`.
+
+| Метод | Путь | Доступ | Описание |
+|---|---|---|---|
+| POST | `/api/auth/register` | все | Регистрация, возвращает пару токенов |
+| POST | `/api/auth/login` | все | Вход по email и паролю |
+| POST | `/api/auth/refresh` | все | Обмен refresh-токена на новую пару |
+| POST | `/api/auth/logout` | все | Отзыв refresh-токена |
+| POST | `/api/users/get` | `Admin` | Пользователь по id (`{ "userId": "..." }` в теле) |
+
+В окружении Development при старте создаётся администратор `admin@hotel.local` / `Admin12345!` (секция `AdminSeed` в `appsettings.Development.json`). В Swagger токен вводится через кнопку **Authorize**.
+
 ---
 
 ## 9. Ожидаемый результат

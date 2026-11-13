@@ -10,7 +10,8 @@ public class UserDto
     public string? MiddleName { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
-    
+    public UserRole Role { get; set; }
+
     public static UserDto ConvertUserToUserDto( Domain.Entities.User user )
     {
         return new UserDto
@@ -21,6 +22,7 @@ public class UserDto
             MiddleName = user.MiddleName,
             Email = user.Email,
             Phone = user.Phone,
+            Role = user.Role,
         };
     }
 }
