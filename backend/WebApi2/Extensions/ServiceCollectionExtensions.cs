@@ -23,10 +23,15 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<HotelManagementDbContext>( options =>
             options.UseSqlServer( configuration.GetConnectionString( "HotelManagement" ) ) );
 
-        // services.AddScoped<IPropertyRepository, EFPropertyRepository>();
-        // services.AddScoped<IRoomTypeRepository, EFRoomTypeRepository>();
-        // services.AddScoped<IReservationRepository, EFReservationRepository>();
         services.AddScoped<IUserRepository, EFUserRepository>();
+        services.AddScoped<IHotelRepository, EFHotelRepository>();
+        services.AddScoped<IRoomRepository, EFRoomRepository>();
+        services.AddScoped<IBookingRepository, EFBookingRepository>();
+        services.AddScoped<IRatePlanRepository, EFRatePlanRepository>();
+        services.AddScoped<IRoomInBookingRepository, EFRoomInBookingRepository>();
+        services.AddScoped<IRoomCategoryRepository, EFRoomCategoryRepository>();
+        services.AddScoped<IRatePlanRoomCategoryRepository, EFRatePlanRoomCategoryRepository>();
+        services.AddScoped<IReportRepository, EFReportRepository>();
         services.AddScoped<IRefreshTokenRepository, EFRefreshTokenRepository>();
         services.AddScoped<AdminSeeder>();
 
@@ -35,10 +40,11 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplicationServices( this IServiceCollection services )
     {
-        // services.AddScoped<PropertyService>();
-        // services.AddScoped<ReservationService>();
-        // services.AddScoped<RoomTypeService>();
+        services.AddScoped<HotelService>();
+        services.AddScoped<RoomService>();
+        services.AddScoped<BookingService>();
         services.AddScoped<UserService>();
+        services.AddScoped<ReportService>();
         services.AddScoped<AuthService>();
 
         return services;

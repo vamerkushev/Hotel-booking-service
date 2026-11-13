@@ -38,6 +38,6 @@ public class AdminSeeder
             _passwordHasher.Hash( options.Password ),
             UserRole.Admin );
 
-        _userRepository.Add( admin );
+        _userRepository.Save( admin );
     }
 }

@@ -45,7 +45,7 @@ public class AuthService
             request.Phone.Trim(),
             _passwordHasher.Hash( request.Password ) );
 
-        _userRepository.Add( user );
+        _userRepository.Save( user );
 
         return IssueTokens( user );
     }
